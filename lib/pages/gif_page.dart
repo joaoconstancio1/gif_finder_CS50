@@ -40,7 +40,7 @@ class GifPage extends StatelessWidget {
                       Share.share(_gifData["images"]["fixed_height"]["url"]);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Ajuste de cor opcional
+                      backgroundColor: Colors.blue,
                     ),
                   ),
                 ),
@@ -78,7 +78,6 @@ class GifPage extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     List<String>? savedGifs = prefs.getStringList('saved_gifs') ?? [];
 
-    // Adiciona a URL do GIF à lista, se ainda não estiver presente
     if (!savedGifs.contains(gifUrl)) {
       savedGifs.add(gifUrl);
     }

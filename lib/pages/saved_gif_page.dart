@@ -7,7 +7,7 @@ class SavedGifsPage extends StatefulWidget {
   const SavedGifsPage({super.key});
 
   @override
-  _SavedGifsPageState createState() => _SavedGifsPageState();
+  State<SavedGifsPage> createState() => _SavedGifsPageState();
 }
 
 class _SavedGifsPageState extends State<SavedGifsPage> {
@@ -35,7 +35,7 @@ class _SavedGifsPageState extends State<SavedGifsPage> {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.black,
-        title: const Text("GIFs Salvos", style: TextStyle(color: Colors.white)),
+        title: const Text("Saved GIFs", style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
       backgroundColor: Colors.black,
@@ -45,7 +45,7 @@ class _SavedGifsPageState extends State<SavedGifsPage> {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
               child: Text(
-                "Nenhum GIF salvo ainda.",
+                "No GIFs saved yet.",
                 style: TextStyle(color: Colors.white),
               ),
             );
@@ -72,7 +72,7 @@ class _SavedGifsPageState extends State<SavedGifsPage> {
                       ),
                       onTap: () {
                         Map gifData = {
-                          "title": "GIF Salvo",
+                          "title": "Saved GIF",
                           "images": {
                             "fixed_height": {"url": gifUrl}
                           }
