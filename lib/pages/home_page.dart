@@ -1,10 +1,7 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:gif_finder/datasources/gif_datasource.dart';
 import 'package:gif_finder/pages/gif_page.dart';
 import 'package:gif_finder/pages/saved_gif_page.dart';
-import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -17,29 +14,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _search = '';
-
   int _offset = 0;
-
-  Future<Map> _getGifs() async {
-    String apiKey = "FlcbU4kRveMJPkFLmeIb8cJNeT9bHm3n";
-    http.Response response;
-
-    if (_search.isEmpty) {
-      response = await http.get(Uri.parse(
-          "https://api.giphy.com/v1/gifs/trending?api_key=$apiKey&limit=20&rating=G"));
-    } else {
-      response = await http.get(Uri.parse(
-          "https://api.giphy.com/v1/gifs/search?api_key=$apiKey&q=$_search&limit=19&offset=$_offset&rating=G&lang=en"));
-    }
-
-    return json.decode(response.body);
-  }
+  final DataSource dataSource = DataSource();
 
   @override
   void initState() {
     super.initState();
 
-    _getGifs().then((map) {
+    dataSource.getGifs().then((map) {
       debugPrint(map.toString());
     });
   }
@@ -91,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: FutureBuilder(
-                future: _getGifs(),
+                future: dataSource.getGifs(search: _search, offset: _offset),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
