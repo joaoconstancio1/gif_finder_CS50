@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gif_finder/ui/home_page.dart';
+import 'package:gif_finder/pages/home_page.dart';
 
-//teste
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MaterialApp(
     home: const HomePage(),
     theme: ThemeData(hintColor: Colors.white),

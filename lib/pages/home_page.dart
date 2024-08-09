@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:gif_finder/ui/gif_page.dart';
-
+import 'package:gif_finder/pages/gif_page.dart';
+import 'package:gif_finder/pages/saved_gif_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -58,19 +58,35 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              decoration: const InputDecoration(
-                  labelText: "Search Here!",
-                  labelStyle: TextStyle(color: Colors.white),
-                  border: OutlineInputBorder()),
-              style: const TextStyle(color: Colors.white, fontSize: 18.0),
-              textAlign: TextAlign.center,
-              onSubmitted: (text) {
-                setState(() {
-                  _search = text;
-                  _offset = 0;
-                });
-              },
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: "Search Here!",
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder()),
+                    style: const TextStyle(color: Colors.white, fontSize: 18.0),
+                    textAlign: TextAlign.center,
+                    onSubmitted: (text) {
+                      setState(() {
+                        _search = text;
+                        _offset = 0;
+                      });
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.bookmark, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SavedGifsPage()),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
           Expanded(
